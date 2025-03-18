@@ -1,0 +1,90 @@
+{
+  "name": "capacitor-7-issue-reproduction",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "prefix": "app",
+  "sourceRoot": "apps/capacitor-7-issue-reproduction/src",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@angular-devkit/build-angular:application",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/capacitor-7-issue-reproduction",
+        "index": "apps/capacitor-7-issue-reproduction/src/index.html",
+        "browser": "apps/capacitor-7-issue-reproduction/src/main.ts",
+        "polyfills": ["zone.js"],
+        "tsConfig": "apps/capacitor-7-issue-reproduction/tsconfig.app.json",
+        "inlineStyleLanguage": "scss",
+        "assets": [
+          {
+            "glob": "**/*",
+            "input": "apps/capacitor-7-issue-reproduction/public"
+          }
+        ],
+        "styles": ["apps/capacitor-7-issue-reproduction/src/styles.scss"],
+        "scripts": []
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "4kb",
+              "maximumError": "8kb"
+            }
+          ],
+          "outputHashing": "all"
+        },
+        "development": {
+          "optimization": false,
+          "extractLicenses": false,
+          "sourceMap": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "configurations": {
+        "production": {
+          "buildTarget": "capacitor-7-issue-reproduction:build:production"
+        },
+        "development": {
+          "buildTarget": "capacitor-7-issue-reproduction:build:development"
+        }
+      },
+      "defaultConfiguration": "development"
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "buildTarget": "capacitor-7-issue-reproduction:build"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "apps/capacitor-7-issue-reproduction/jest.config.ts"
+      }
+    },
+    "serve-static": {
+      "executor": "@nx/web:file-server",
+      "options": {
+        "buildTarget": "capacitor-7-issue-reproduction:build",
+        "port": 4200,
+        "staticFilePath": "dist/apps/capacitor-7-issue-reproduction/browser",
+        "spa": true
+      }
+    }
+  }
+}
